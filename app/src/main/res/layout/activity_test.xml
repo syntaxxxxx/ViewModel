@@ -51,6 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_16"
+            android:digits="qwertyuiopasdfghjklzxcvbnm1234567890"
             android:hint="@string/creature_name"
             android:inputType="text"
             android:text="@={viewmodel.name}"

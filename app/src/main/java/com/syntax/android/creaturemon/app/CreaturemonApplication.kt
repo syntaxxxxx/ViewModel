@@ -1,4 +1,3 @@
-
 package com.syntax.android.creaturemon.app
 
 import android.app.Application
@@ -7,14 +6,14 @@ import com.syntax.android.creaturemon.model.room.CreatureDatabase
 
 class CreaturemonApplication : Application() {
 
-  companion object {
-    lateinit var database: CreatureDatabase
-  }
+    companion object {
+        lateinit var database: CreatureDatabase
+    }
 
-  override fun onCreate() {
-    super.onCreate()
+    override fun onCreate() {
+        super.onCreate()
 
-    database = Room.databaseBuilder(this, CreatureDatabase::class.java, "creature_database")
-        .build()
-  }
+        database = Room.databaseBuilder(
+                this, CreatureDatabase::class.java, "creature_database").build()
+    }
 }

@@ -1,7 +1,6 @@
 
 package com.syntax.android.creaturemon.view.avatars
 
-import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.support.v7.widget.RecyclerView
@@ -35,7 +34,6 @@ class AvatarAdapter(private val avatars: List<Avatar>, private val listener: Ava
       itemView.setOnClickListener(this)
     }
 
-    @SuppressLint("SetTextI18n")
     fun bind(avatar: Avatar) {
       this.avatar = avatar
       val bitmap = BitmapFactory.decodeResource(imageView.context.resources, avatar.drawable)

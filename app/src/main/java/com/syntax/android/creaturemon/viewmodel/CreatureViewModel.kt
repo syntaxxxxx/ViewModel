@@ -1,4 +1,3 @@
-
 package com.syntax.android.creaturemon.viewmodel
 
 import android.arch.lifecycle.LiveData
@@ -11,58 +10,58 @@ import com.syntax.android.creaturemon.model.room.RoomRepository
 class CreatureViewModel(private val generator: CreatureGenerator = CreatureGenerator(),
                         private val repository: CreatureRepository = RoomRepository()) : ViewModel() {
 
-  private val creatureLiveData = MutableLiveData<Creature>()
-  private val saveLiveData = MutableLiveData<Boolean>()
+    private val creatureLiveData = MutableLiveData<Creature>()
+    private val saveLiveData = MutableLiveData<Boolean>()
 
-  fun getCreatureLiveData(): LiveData<Creature> = creatureLiveData
-  fun getSaveLiveData(): LiveData<Boolean> = saveLiveData
+    fun getCreatureLiveData(): LiveData<Creature> = creatureLiveData
+    fun getSaveLiveData(): LiveData<Boolean> = saveLiveData
 
-  var name = ObservableField<String>("")
-  var intelligence = 0
-  var strength = 0
-  var endurance = 0
-  var drawable = 0
+    var name = ObservableField<String>("")
+    var intelligence = 0
+    var strength = 0
+    var endurance = 0
+    var drawable = 0
 
-  lateinit var creature: Creature
+    lateinit var creature: Creature
 
-  fun updateCreature() {
-    val attributes = CreatureAttributes(intelligence, strength, endurance)
-    creature = generator.generateCreature(attributes, name.get() ?: "", drawable)
-    creatureLiveData.postValue(creature)
-  }
-
-  fun attributeSelected(attributeType: AttributeType, position: Int) {
-    when (attributeType) {
-      AttributeType.INTELLIGENCE ->
-        intelligence = AttributeStore.INTELLIGENCE[position].value
-      AttributeType.STRENGTH ->
-        strength = AttributeStore.STRENGTH[position].value
-      AttributeType.ENDURANCE ->
-        endurance = AttributeStore.ENDURANCE[position].value
+    fun updateCreature() {
+        val attributes = CreatureAttributes(intelligence, strength, endurance)
+        creature = generator.generateCreature(attributes, name.get() ?: "", drawable)
+        creatureLiveData.postValue(creature)
     }
-    updateCreature()
-  }
 
-  fun drawableSelected(drawable: Int) {
-    this.drawable = drawable
-    updateCreature()
-  }
-
-  fun saveCreature() {
-    return if (canSaveCreature()) {
-      repository.saveCreature(creature)
-      saveLiveData.postValue(true)
-    } else {
-      saveLiveData.postValue(false)
+    fun attributeSelected(attributeType: AttributeType, position: Int) {
+        when (attributeType) {
+            AttributeType.INTELLIGENCE ->
+                intelligence = AttributeStore.INTELLIGENCE[position].value
+            AttributeType.STRENGTH ->
+                strength = AttributeStore.STRENGTH[position].value
+            AttributeType.ENDURANCE ->
+                endurance = AttributeStore.ENDURANCE[position].value
+        }
+        updateCreature()
     }
-  }
 
-  fun canSaveCreature(): Boolean {
-    val name = this.name.get()
-    name?.let {
-      return intelligence != 0 && strength != 0 && endurance != 0 &&
-          name.isNotEmpty() && drawable != 0
+    fun drawableSelected(drawable: Int) {
+        this.drawable = drawable
+        updateCreature()
     }
-    return false
-  }
+
+    fun saveCreature() {
+        return if (canSaveCreature()) {
+            repository.saveCreature(creature)
+            saveLiveData.postValue(true)
+        } else {
+            saveLiveData.postValue(false)
+        }
+    }
+
+    fun canSaveCreature(): Boolean {
+        val name = this.name.get()
+        name?.let {
+            return intelligence != 0 && strength != 0 && endurance != 0 &&
+                    name.isNotEmpty() && name.toString().trim().isNotEmpty() && drawable != 0
+        }
+        return false
+    }
 }

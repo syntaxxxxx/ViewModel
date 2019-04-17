@@ -11,7 +11,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.syntax.android.creaturemon.R
-import com.syntax.android.creaturemon.databinding.ActivityTestBinding
 import com.syntax.android.creaturemon.model.AttributeStore
 import com.syntax.android.creaturemon.model.AttributeType
 import com.syntax.android.creaturemon.model.AttributeValue
@@ -26,7 +25,7 @@ class CreatureActivity : AppCompatActivity(), AvatarAdapter.AvatarListener {
 
   private lateinit var viewModel: CreatureViewModel
 
-  lateinit var binding: ActivityTestBinding
+  lateinit var binding: com.syntax.android.creaturemon.databinding.ActivityTestBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
